@@ -57,6 +57,7 @@ view config state selected item =
             [ class classes
             , onClick (OnSelect item)
             , onKeyUpAttribute item
+            , Utils.referenceAttr config state
             , style styles
             ]
             [ text (config.toLabel item)

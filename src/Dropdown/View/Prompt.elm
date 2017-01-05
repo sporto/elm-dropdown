@@ -2,6 +2,7 @@ module Dropdown.View.Prompt exposing (..)
 
 import Dropdown.Messages exposing (..)
 import Dropdown.Models exposing (..)
+import Dropdown.Events exposing (onBlurAttribute)
 import Dropdown.Utils as Utils
 import Dropdown.View.Arrow as Arrow
 import Dropdown.View.Clear as Clear
@@ -32,7 +33,7 @@ onKeyUpAttribute =
 
 
 view : Config msg item -> State -> List item -> Maybe item -> Html (Msg item)
-view config model items selected =
+view config state items selected =
     let
         prompWrapperStyles =
             [ ( "display", "flex" )
@@ -73,10 +74,12 @@ view config model items selected =
     in
         div
             [ class config.promptClass
+            , onBlurAttribute config state
             , onClick OnClickPrompt
             , onKeyUpAttribute
             , style prompWrapperStyles
             , tabindex 0
+            , Utils.referenceAttr config state
             ]
             [ span [ style textStyles ] [ text promptText ]
             , clear

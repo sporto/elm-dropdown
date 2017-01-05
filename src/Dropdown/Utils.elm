@@ -1,6 +1,8 @@
 module Dropdown.Utils exposing (..)
 
 import Dropdown.Models exposing (..)
+import Html exposing (..)
+import Html.Attributes exposing (attribute, class, value)
 
 
 toKey : Int -> Key
@@ -23,3 +25,13 @@ toKey keyCode =
 
         _ ->
             KeyOther
+
+
+referenceDataName : String
+referenceDataName =
+    "data-dropdown-id"
+
+
+referenceAttr : Config msg item -> State -> Attribute msg2
+referenceAttr config model =
+    attribute referenceDataName model.id
