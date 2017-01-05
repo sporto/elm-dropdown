@@ -1,13 +1,34 @@
 module Dropdown.View.Item exposing (..)
 
-import Dropdown.Messages as Messages
-import Dropdown.Models as Models
+import Dropdown.Messages exposing (..)
+import Dropdown.Models exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (attribute, class, style, tabindex)
 import Html.Events exposing (onClick, on, keyCode)
+import Json.Decode as Decode
 
 
-view : Models.Config msg item -> Models.State -> Maybe item -> item -> Html (Messages.Msg item)
+onKeyUpAttribute : item -> Attribute (Msg item)
+onKeyUpAttribute item =
+    let
+        fn code =
+            case code of
+                13 ->
+                    Decode.succeed (OnSelect item)
+
+                32 ->
+                    Decode.succeed (OnSelect item)
+
+                27 ->
+                    Decode.succeed OnEsc
+
+                _ ->
+                    Decode.fail "not ENTER"
+    in
+        on "keyup" (Decode.andThen fn keyCode)
+
+
+view : Config msg item -> State -> Maybe item -> item -> Html (Msg item)
 view config state selected item =
     let
         classes =
@@ -33,7 +54,8 @@ view config state selected item =
     in
         div
             [ class classes
-            , onClick (Messages.OnSelect item)
+            , onClick (OnSelect item)
+            , onKeyUpAttribute item
             , style styles
             , tabindex 0
             ]

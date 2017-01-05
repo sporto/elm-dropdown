@@ -5,7 +5,7 @@ import Dropdown.Models exposing (..)
 import Dropdown.View.Arrow as Arrow
 import Dropdown.View.Clear as Clear
 import Html exposing (..)
-import Html.Attributes exposing (class, id, style)
+import Html.Attributes exposing (class, id, style, tabindex)
 import Html.Events exposing (onWithOptions, onClick)
 import Json.Decode as Decode
 
@@ -54,6 +54,7 @@ view config model items selected =
             [ class config.promptClass
             , style prompWrapperStyles
             , onClick OnClickPrompt
+            , tabindex 0
             ]
             [ span [ style textStyles ] [ text promptText ]
             , clear
