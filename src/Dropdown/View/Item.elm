@@ -54,6 +54,8 @@ view config state selected item =
         styles =
             List.concat [ baseStyles, maybeSelectedStyles, config.itemStyles ]
     in
+        -- tabindex needs to be present for the related target to work on blur
+        -- tabindex = -1 means do not tab to this element
         div
             [ class classes
             , onBlurAttribute config state
@@ -61,6 +63,7 @@ view config state selected item =
             , onKeyUpAttribute item
             , Utils.referenceAttr config state
             , style styles
+            , tabindex -1
             ]
             [ text (config.toLabel item)
             ]
