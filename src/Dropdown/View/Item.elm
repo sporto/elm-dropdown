@@ -1,5 +1,6 @@
 module Dropdown.View.Item exposing (..)
 
+import Dropdown.Events exposing (onBlurAttribute)
 import Dropdown.Messages exposing (..)
 import Dropdown.Models exposing (..)
 import Dropdown.Utils as Utils
@@ -55,6 +56,7 @@ view config state selected item =
     in
         div
             [ class classes
+            , onBlurAttribute config state
             , onClick (OnSelect item)
             , onKeyUpAttribute item
             , Utils.referenceAttr config state

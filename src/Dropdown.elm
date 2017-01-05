@@ -13,8 +13,9 @@ module Dropdown
         , withItemStyles
         , withMenuClass
         , withMenuStyles
-        , withPromptClass
+        , withPrompt
         , withSelectedStyles
+        , withTriggerClass
         )
 
 {-| Dropdown component
@@ -26,7 +27,7 @@ module Dropdown
 @docs newConfig
 
 # Styling
-@docs withArrowClass, withClearClass, withItemClass, withItemStyles, withMenuClass, withMenuStyles, withPromptClass, withSelectedStyles
+@docs withArrowClass, withClearClass, withItemClass, withItemStyles, withMenuClass, withMenuStyles, withPrompt, withSelectedStyles, withTriggerClass
 
 # State
 @docs newState
@@ -164,16 +165,11 @@ withMenuStyles styles config =
         fmapConfig fn config
 
 
-{-|
-Add classes to prompt text (The selected item)
-
-    Dropdown.withPromptClass "bg-white" config
--}
-withPromptClass : String -> Config msg item -> Config msg item
-withPromptClass classes config =
+withPrompt : String -> Config msg item -> Config msg item
+withPrompt prompt config =
     let
         fn c =
-            { c | promptClass = classes }
+            { c | prompt = prompt }
     in
         fmapConfig fn config
 
@@ -188,6 +184,20 @@ withSelectedClass classes config =
     let
         fn c =
             { c | selectedClass = classes }
+    in
+        fmapConfig fn config
+
+
+{-|
+Add classes to trigger element
+
+    Dropdown.withTriggerClass "bg-white" config
+-}
+withTriggerClass : String -> Config msg item -> Config msg item
+withTriggerClass classes config =
+    let
+        fn c =
+            { c | triggerClass = classes }
     in
         fmapConfig fn config
 

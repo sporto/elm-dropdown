@@ -1,4 +1,4 @@
-module Dropdown.View.Prompt exposing (..)
+module Dropdown.View.Trigger exposing (..)
 
 import Dropdown.Messages exposing (..)
 import Dropdown.Models exposing (..)
@@ -63,7 +63,7 @@ view config state items selected =
         promptText =
             case selected of
                 Nothing ->
-                    nbsp
+                    config.prompt
 
                 Just item ->
                     config.toLabel item
@@ -73,7 +73,7 @@ view config state items selected =
                 |> onWithOptions "click" { stopPropagation = True, preventDefault = False }
     in
         div
-            [ class config.promptClass
+            [ class config.triggerClass
             , onBlurAttribute config state
             , onClick OnClickPrompt
             , onKeyUpAttribute
@@ -85,8 +85,3 @@ view config state items selected =
             , clear
             , span [ style arrowStyles ] [ Arrow.view config ]
             ]
-
-
-nbsp : String
-nbsp =
-    " "

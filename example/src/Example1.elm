@@ -79,7 +79,8 @@ dropdownConfig =
         |> Dropdown.withItemStyles [ ( "color", "darkgrey" ) ]
         |> Dropdown.withMenuClass "border border-gray"
         |> Dropdown.withMenuStyles [ ( "background", "white" ) ]
-        |> Dropdown.withPromptClass "col-12 bg-white p1"
+        |> Dropdown.withPrompt "Select"
+        |> Dropdown.withTriggerClass "col-12 bg-white p1"
 
 
 {-|
@@ -125,7 +126,7 @@ view model =
                     List.filter (\movie -> movie.id == id) movies
                         |> List.head
     in
-        div [ class "bg-silver p1" ]
+        div [ class "bg-white p1" ]
             [ h3 [] [ text "Basic example" ]
             , text (toString model.selectedMovieId)
               -- Render the Dropdown view. You must pass:

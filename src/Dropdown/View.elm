@@ -1,14 +1,14 @@
 module Dropdown.View exposing (..)
 
-import Dropdown.Messages as Messages
-import Dropdown.Models as Models
+import Dropdown.Messages exposing (..)
+import Dropdown.Models exposing (..)
 import Dropdown.View.List as List
-import Dropdown.View.Prompt as Prompt
+import Dropdown.View.Trigger as Trigger
 import Html exposing (..)
 import Html.Attributes exposing (class, id, style)
 
 
-view : Models.Config msg item -> Models.State -> List item -> Maybe item -> Html (Messages.Msg item)
+view : Config msg item -> State -> List item -> Maybe item -> Html (Msg item)
 view config model items selected =
     let
         menuWrapperStyles =
@@ -24,6 +24,6 @@ view config model items selected =
                 span [] []
     in
         div [ id model.id ]
-            [ Prompt.view config model items selected
+            [ Trigger.view config model items selected
             , menu
             ]

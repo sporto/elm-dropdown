@@ -15,3 +15,7 @@ See commented example at `example/src/Example1.elm`
 <http://package.elm-lang.org/packages/sporto/elm-dropdown/latest>
 
 ### [Changelog](./CHANGELOG.md)
+
+### TODO
+
+- Navigation with arrows
