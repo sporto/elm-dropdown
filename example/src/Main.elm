@@ -63,7 +63,7 @@ projectUrl =
 view : Model -> Html Msg
 view model =
     div [ class "p3" ]
-        [ h1 [] [ text "Elm Select" ]
+        [ h1 [] [ text "Elm Dropdown" ]
         , a [ class "h3", href projectUrl ] [ text projectUrl ]
         , div [ class "clearfix mt2" ]
             [ div [ class "col col-6" ]

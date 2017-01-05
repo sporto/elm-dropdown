@@ -77,7 +77,7 @@ dropdownConfig =
         |> Dropdown.withItemStyles [ ( "color", "darkgrey" ) ]
         |> Dropdown.withMenuClass "border border-gray"
         |> Dropdown.withMenuStyles [ ( "background", "white" ) ]
-        |> Dropdown.withPromptClass "col-12"
+        |> Dropdown.withPromptClass "col-12 bg-white"
 
 
 {-|
