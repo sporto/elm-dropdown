@@ -64,12 +64,15 @@ view config state items selected =
             config.triggerClass ++ " " ++ maybePromptClass
 
         clear =
-            case selected of
-                Nothing ->
-                    text ""
+            if config.hasClear then
+                case selected of
+                    Nothing ->
+                        text ""
 
-                Just _ ->
-                    span [ onClickWithoutPropagation OnClear ] [ Clear.view config ]
+                    Just _ ->
+                        span [ onClickWithoutPropagation OnClear ] [ Clear.view config ]
+            else
+                text ""
 
         promptText =
             case selected of

@@ -46,6 +46,7 @@ type Msg
 dropdownConfig : Dropdown.Config Msg Movie
 dropdownConfig =
     Dropdown.newConfig OnSelect .label
+        |> Dropdown.withClear False
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )

@@ -8,6 +8,7 @@ module Dropdown
         , update
         , view
         , withArrowClass
+        , withClear
         , withClearClass
         , withItemClass
         , withItemStyles
@@ -26,10 +27,10 @@ module Dropdown
 @docs Config, State, Msg
 
 # Configuration
-@docs newConfig
+@docs newConfig, withClear, withPrompt
 
 # Styling
-@docs withArrowClass, withClearClass, withItemClass, withItemStyles, withMenuClass, withMenuStyles, withPrompt, withPromptClass, withSelectedClass, withSelectedStyles, withTriggerClass
+@docs withArrowClass, withClearClass, withItemClass, withItemStyles, withMenuClass, withMenuStyles, withPromptClass, withSelectedClass, withSelectedStyles, withTriggerClass
 
 # State
 @docs newState
@@ -93,6 +94,20 @@ withArrowClass classes config =
     let
         fn c =
             { c | arrowClass = classes }
+    in
+        fmapConfig fn config
+
+
+{-|
+Show or hide the clear (x) button, default is true
+
+    Dropdown.withClear False config
+-}
+withClear : Bool -> Config msg item -> Config msg item
+withClear bool config =
+    let
+        fn c =
+            { c | hasClear = bool }
     in
         fmapConfig fn config
 
