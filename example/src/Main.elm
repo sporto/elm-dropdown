@@ -1,20 +1,21 @@
 module Main exposing (..)
 
 import Example1
+import Example2
 import Html exposing (..)
 import Html.Attributes exposing (class, href)
 
 
 type alias Model =
-    { example1a : Example1.Model
-    , example1b : Example1.Model
+    { example1 : Example1.Model
+    , example2 : Example2.Model
     }
 
 
 initialModel : Model
 initialModel =
-    { example1a = Example1.initialModel "1"
-    , example1b = Example1.initialModel "2"
+    { example1 = Example1.initialModel "example1"
+    , example2 = Example2.initialModel "example2"
     }
 
 
@@ -30,26 +31,26 @@ init =
 
 type Msg
     = NoOp
-    | Example1aMsg Example1.Msg
-    | Example1bMsg Example1.Msg
+    | Example1Msg Example1.Msg
+    | Example2Msg Example2.Msg
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        Example1aMsg sub ->
+        Example1Msg sub ->
             let
                 ( subModel, subCmd ) =
-                    Example1.update sub model.example1a
+                    Example1.update sub model.example1
             in
-                ( { model | example1a = subModel }, Cmd.map Example1aMsg subCmd )
+                ( { model | example1 = subModel }, Cmd.map Example1Msg subCmd )
 
-        Example1bMsg sub ->
+        Example2Msg sub ->
             let
                 ( subModel, subCmd ) =
-                    Example1.update sub model.example1b
+                    Example2.update sub model.example2
             in
-                ( { model | example1b = subModel }, Cmd.map Example1bMsg subCmd )
+                ( { model | example2 = subModel }, Cmd.map Example2Msg subCmd )
 
         NoOp ->
             ( model, Cmd.none )
@@ -67,10 +68,10 @@ view model =
         , a [ class "h3", href projectUrl ] [ text projectUrl ]
         , div [ class "clearfix mt2" ]
             [ div [ class "col col-6" ]
-                [ Html.map Example1aMsg (Example1.view model.example1a)
+                [ Html.map Example1Msg (Example1.view model.example1)
                 ]
             , div [ class "col col-6" ]
-                [ Html.map Example1bMsg (Example1.view model.example1b)
+                [ Html.map Example2Msg (Example2.view model.example2)
                 ]
             ]
         ]

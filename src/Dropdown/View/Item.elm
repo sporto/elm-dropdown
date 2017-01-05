@@ -2,6 +2,7 @@ module Dropdown.View.Item exposing (..)
 
 import Dropdown.Messages exposing (..)
 import Dropdown.Models exposing (..)
+import Dropdown.Utils as Utils
 import Html exposing (..)
 import Html.Attributes exposing (attribute, class, style, tabindex)
 import Html.Events exposing (onClick, on, keyCode)
@@ -12,15 +13,15 @@ onKeyUpAttribute : item -> Attribute (Msg item)
 onKeyUpAttribute item =
     let
         fn code =
-            case code of
-                13 ->
+            case Utils.toKey code of
+                KeyEnter ->
                     Decode.succeed (OnSelect item)
 
-                32 ->
-                    Decode.succeed (OnSelect item)
-
-                27 ->
+                KeyEsc ->
                     Decode.succeed OnEsc
+
+                KeySpace ->
+                    Decode.succeed (OnSelect item)
 
                 _ ->
                     Decode.fail "not ENTER"

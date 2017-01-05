@@ -2,6 +2,7 @@ module Dropdown.View.Prompt exposing (..)
 
 import Dropdown.Messages exposing (..)
 import Dropdown.Models exposing (..)
+import Dropdown.Utils as Utils
 import Dropdown.View.Arrow as Arrow
 import Dropdown.View.Clear as Clear
 import Html exposing (..)
@@ -14,11 +15,14 @@ onKeyUpAttribute : Attribute (Msg item)
 onKeyUpAttribute =
     let
         fn code =
-            case code of
-                13 ->
+            case Utils.toKey code of
+                KeyEnter ->
                     Decode.succeed OnClickPrompt
 
-                32 ->
+                KeySpace ->
+                    Decode.succeed OnClickPrompt
+
+                KeyArrowDown ->
                     Decode.succeed OnClickPrompt
 
                 _ ->

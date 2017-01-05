@@ -43,3 +43,12 @@ newState id =
     { id = id
     , isOpened = False
     }
+
+
+type Key
+    = KeyOther
+    | KeyArrowDown
+    | KeyArrowUp
+    | KeyEnter
+    | KeyEsc
+    | KeySpace
