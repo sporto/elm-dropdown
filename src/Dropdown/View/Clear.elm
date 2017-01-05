@@ -7,7 +7,7 @@ import Svg.Attributes as Attrs
 
 view : Models.Config userMsg item -> Svg msg
 view config =
-    svg [ Attrs.class config.arrowClass, Attrs.width "16", Attrs.height "16", Attrs.viewBox "0 0 16 16" ]
+    svg [ Attrs.class config.clearClass, Attrs.width "16", Attrs.height "16", Attrs.viewBox "0 0 16 16" ]
         [ g [ Attrs.transform "translate(4, 6)" ]
             [ path [ Attrs.d svgPath ] []
             ]

@@ -56,12 +56,12 @@ initialModel id =
 {-|
 Your application messages need to include:
 - OnSelect item : This will be called when an item is selected
-- SelectMsg (Select.Msg item) : A message that wraps internal Select library messages. This is necessary to route messages back to the component.
+- DropdownMsg (Dropdown.Msg item) : A message that wraps internal Select library messages. This is necessary to route messages back to the component.
 -}
 type Msg
     = NoOp
     | OnSelect Movie
-    | SelectMsg (Dropdown.Msg Movie)
+    | DropdownMsg (Dropdown.Msg Movie)
 
 
 {-|
@@ -83,7 +83,7 @@ dropdownConfig =
 
 
 {-|
-Your update function should route messages back to the Dropdown component, see `SelectMsg`.
+Your update function should route messages back to the Dropdown component, see `DropdownMsg`.
 -}
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
@@ -94,7 +94,7 @@ update msg model =
 
         -- Route message to the Dropdown component.
         -- The returned command is important.
-        SelectMsg subMsg ->
+        DropdownMsg subMsg ->
             let
                 ( updated, cmd ) =
                     Dropdown.update dropdownConfig subMsg model.dropdownState
@@ -130,5 +130,5 @@ view model =
               -- - A list of items
               -- - The currently selected item as Maybe
             , h4 [] [ text "Pick a movie" ]
-            , Html.map SelectMsg (Dropdown.view dropdownConfig model.dropdownState model.movies selectedMovie)
+            , Html.map DropdownMsg (Dropdown.view dropdownConfig model.dropdownState model.movies selectedMovie)
             ]

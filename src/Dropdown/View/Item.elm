@@ -10,6 +10,9 @@ import Html.Events exposing (onClick, on, keyCode)
 view : Models.Config msg item -> Models.State -> Maybe item -> item -> Html (Messages.Msg item)
 view config state selected item =
     let
+        classes =
+            config.itemClass ++ " " ++ config.selectedClass
+
         baseStyles =
             [ ( "cursor", "pointer" )
             ]
@@ -29,10 +32,10 @@ view config state selected item =
             List.concat [ baseStyles, selectedStyles, config.itemStyles ]
     in
         div
-            [ onClick (Messages.OnSelect item)
-            , tabindex 0
-            , class config.itemClass
+            [ class classes
+            , onClick (Messages.OnSelect item)
             , style styles
+            , tabindex 0
             ]
             [ text (config.toLabel item)
             ]
