@@ -57,7 +57,6 @@ view config state selected item =
             , onClick (OnSelect item)
             , onKeyUpAttribute item
             , style styles
-            , tabindex 0
             ]
             [ text (config.toLabel item)
             ]

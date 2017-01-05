@@ -6,8 +6,25 @@ import Dropdown.View.Arrow as Arrow
 import Dropdown.View.Clear as Clear
 import Html exposing (..)
 import Html.Attributes exposing (class, id, style, tabindex)
-import Html.Events exposing (onWithOptions, onClick)
+import Html.Events exposing (on, onWithOptions, onClick, keyCode)
 import Json.Decode as Decode
+
+
+onKeyUpAttribute : Attribute (Msg item)
+onKeyUpAttribute =
+    let
+        fn code =
+            case code of
+                13 ->
+                    Decode.succeed OnClickPrompt
+
+                32 ->
+                    Decode.succeed OnClickPrompt
+
+                _ ->
+                    Decode.fail "Invalid"
+    in
+        on "keyup" (Decode.andThen fn keyCode)
 
 
 view : Config msg item -> State -> List item -> Maybe item -> Html (Msg item)
@@ -52,8 +69,9 @@ view config model items selected =
     in
         div
             [ class config.promptClass
-            , style prompWrapperStyles
             , onClick OnClickPrompt
+            , onKeyUpAttribute
+            , style prompWrapperStyles
             , tabindex 0
             ]
             [ span [ style textStyles ] [ text promptText ]
