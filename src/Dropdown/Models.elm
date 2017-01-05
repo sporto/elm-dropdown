@@ -8,7 +8,7 @@ type alias Config msg item =
     , itemStyles : List ( String, String )
     , menuClass : String
     , menuStyles : List ( String, String )
-    , onSelect : item -> msg
+    , onSelect : Maybe item -> msg
     , promptClass : String
     , selectedClass : String
     , selectedStyles : List ( String, String )
@@ -16,7 +16,7 @@ type alias Config msg item =
     }
 
 
-newConfig : (item -> msg) -> (item -> String) -> Config msg item
+newConfig : (Maybe item -> msg) -> (item -> String) -> Config msg item
 newConfig onSelect toLabel =
     { arrowClass = ""
     , clearClass = ""

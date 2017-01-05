@@ -14,16 +14,24 @@ update config msg model =
         OnBlur ->
             ( { model | isOpened = False }, Cmd.none )
 
-        OnEsc ->
-            ( { model | isOpened = False }, Cmd.none )
+        OnClear ->
+            let
+                cmd =
+                    Task.succeed Nothing
+                        |> Task.perform config.onSelect
+            in
+                ( { model | isOpened = False }, cmd )
 
         OnClickPrompt ->
             ( { model | isOpened = not model.isOpened }, Cmd.none )
 
+        OnEsc ->
+            ( { model | isOpened = False }, Cmd.none )
+
         OnSelect item ->
             let
                 cmd =
-                    Task.succeed item
+                    Task.succeed (Just item)
                         |> Task.perform config.onSelect
             in
                 ( { model | isOpened = False }, cmd )

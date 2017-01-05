@@ -60,7 +60,7 @@ Your application messages need to include:
 -}
 type Msg
     = NoOp
-    | OnSelect Movie
+    | OnSelect (Maybe Movie)
     | DropdownMsg (Dropdown.Msg Movie)
 
 
@@ -89,8 +89,13 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case Debug.log "msg" msg of
         -- OnSelect is triggered when a selection is made on the Dropdown component.
-        OnSelect movie ->
-            ( { model | selectedMovieId = Just movie.id }, Cmd.none )
+        OnSelect maybeMovie ->
+            let
+                maybeId =
+                    maybeMovie
+                        |> Maybe.map .id
+            in
+                ( { model | selectedMovieId = maybeId }, Cmd.none )
 
         -- Route message to the Dropdown component.
         -- The returned command is important.

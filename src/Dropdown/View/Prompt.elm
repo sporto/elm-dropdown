@@ -1,7 +1,7 @@
 module Dropdown.View.Prompt exposing (..)
 
-import Dropdown.Messages as Messages
-import Dropdown.Models as Models
+import Dropdown.Messages exposing (..)
+import Dropdown.Models exposing (..)
 import Dropdown.View.Arrow as Arrow
 import Dropdown.View.Clear as Clear
 import Html exposing (..)
@@ -9,7 +9,7 @@ import Html.Attributes exposing (class, id, style)
 import Html.Events exposing (onClick)
 
 
-view : Models.Config msg item -> Models.State -> List item -> Maybe item -> Html (Messages.Msg item)
+view : Config msg item -> State -> List item -> Maybe item -> Html (Msg item)
 view config model items selected =
     let
         prompWrapperStyles =
@@ -40,10 +40,10 @@ view config model items selected =
         div
             [ class config.promptClass
             , style prompWrapperStyles
-            , onClick Messages.OnClickPrompt
+            , onClick OnClickPrompt
             ]
             [ span [ style textStyles ] [ text promptText ]
-            , span [] [ Clear.view config ]
+            , span [ onClick OnClear ] [ Clear.view config ]
             , span [ style arrowStyles ] [ Arrow.view config ]
             ]
 

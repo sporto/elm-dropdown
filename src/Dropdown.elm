@@ -75,7 +75,7 @@ Create a new configuration. This takes:
 
     Dropdown.newConfig OnSelect .label
 -}
-newConfig : (item -> msg) -> (item -> String) -> Config msg item
+newConfig : (Maybe item -> msg) -> (item -> String) -> Config msg item
 newConfig onSelectMessage toLabel =
     PrivateConfig (Models.newConfig onSelectMessage toLabel)
 
