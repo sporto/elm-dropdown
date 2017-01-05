@@ -3,6 +3,7 @@ module Dropdown.View.Prompt exposing (..)
 import Dropdown.Messages as Messages
 import Dropdown.Models as Models
 import Dropdown.View.Arrow as Arrow
+import Dropdown.View.Clear as Clear
 import Html exposing (..)
 import Html.Attributes exposing (class, id, style)
 import Html.Events exposing (onClick)
@@ -39,7 +40,8 @@ view config model items selected =
             , onClick Messages.OnClickPrompt
             ]
             [ span [ style textStyles ] [ text promptText ]
-            , span [ style arrowStyles ] [ Arrow.arrow config ]
+            , span [] [ Clear.view config ]
+            , span [ style arrowStyles ] [ Arrow.view config ]
             ]
 
 
