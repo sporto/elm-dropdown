@@ -17,6 +17,14 @@ view config model items selected =
             , ( "cursor", "pointer" )
             ]
 
+        textStyles =
+            [ ( "flex-grow", "1" )
+            ]
+
+        arrowStyles =
+            [ ( "padding", "0 0.25rem 0 0" )
+            ]
+
         promptText =
             case selected of
                 Nothing ->
@@ -30,10 +38,11 @@ view config model items selected =
             , style prompWrapperStyles
             , onClick Messages.OnClickPrompt
             ]
-            [ span [] [ text promptText ]
-            , Arrow.arrow config
+            [ span [ style textStyles ] [ text promptText ]
+            , span [ style arrowStyles ] [ Arrow.arrow config ]
             ]
 
 
+nbsp : String
 nbsp =
     " "

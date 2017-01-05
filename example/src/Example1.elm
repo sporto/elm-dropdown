@@ -36,7 +36,9 @@ This just transforms a list of tuples into records
 -}
 movies : List Movie
 movies =
-    List.map (\( id, name ) -> Movie id name) Movies.movies
+    Movies.movies
+        |> List.map (\( id, name ) -> Movie id name)
+        |> List.take 6
 
 
 {-|
@@ -77,7 +79,7 @@ dropdownConfig =
         |> Dropdown.withItemStyles [ ( "color", "darkgrey" ) ]
         |> Dropdown.withMenuClass "border border-gray"
         |> Dropdown.withMenuStyles [ ( "background", "white" ) ]
-        |> Dropdown.withPromptClass "col-12 bg-white"
+        |> Dropdown.withPromptClass "col-12 bg-white p1"
 
 
 {-|
