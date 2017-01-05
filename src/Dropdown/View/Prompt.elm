@@ -6,7 +6,8 @@ import Dropdown.View.Arrow as Arrow
 import Dropdown.View.Clear as Clear
 import Html exposing (..)
 import Html.Attributes exposing (class, id, style)
-import Html.Events exposing (onClick)
+import Html.Events exposing (onWithOptions, onClick)
+import Json.Decode as Decode
 
 
 view : Config msg item -> State -> List item -> Maybe item -> Html (Msg item)
@@ -29,6 +30,14 @@ view config model items selected =
             [ ( "padding", "0 0.25rem 0 0" )
             ]
 
+        clear =
+            case selected of
+                Nothing ->
+                    text ""
+
+                Just _ ->
+                    span [ onClickWithoutPropagation OnClear ] [ Clear.view config ]
+
         promptText =
             case selected of
                 Nothing ->
@@ -36,6 +45,10 @@ view config model items selected =
 
                 Just item ->
                     config.toLabel item
+
+        onClickWithoutPropagation msg =
+            Decode.succeed msg
+                |> onWithOptions "click" { stopPropagation = True, preventDefault = False }
     in
         div
             [ class config.promptClass
@@ -43,7 +56,7 @@ view config model items selected =
             , onClick OnClickPrompt
             ]
             [ span [ style textStyles ] [ text promptText ]
-            , span [ onClick OnClear ] [ Clear.view config ]
+            , clear
             , span [ style arrowStyles ] [ Arrow.view config ]
             ]
 
