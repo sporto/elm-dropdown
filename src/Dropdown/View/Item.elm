@@ -33,26 +33,26 @@ onKeyUpAttribute item =
 view : Config msg item -> State -> Maybe item -> item -> Html (Msg item)
 view config state selected item =
     let
+        ( maybeSelectedClass, maybeSelectedStyles ) =
+            case selected of
+                Just selectedItem ->
+                    if selectedItem == item then
+                        ( config.selectedClass, config.selectedStyles )
+                    else
+                        ( "", [] )
+
+                Nothing ->
+                    ( "", [] )
+
         classes =
-            config.itemClass ++ " " ++ config.selectedClass
+            config.itemClass ++ " " ++ maybeSelectedClass
 
         baseStyles =
             [ ( "cursor", "pointer" )
             ]
 
-        selectedStyles =
-            case selected of
-                Just selectedItem ->
-                    if selectedItem == item then
-                        config.selectedStyles
-                    else
-                        []
-
-                Nothing ->
-                    []
-
         styles =
-            List.concat [ baseStyles, selectedStyles, config.itemStyles ]
+            List.concat [ baseStyles, maybeSelectedStyles, config.itemStyles ]
     in
         div
             [ class classes

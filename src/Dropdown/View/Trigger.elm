@@ -52,6 +52,17 @@ view config state items selected =
             [ ( "padding", "0 0.25rem 0 0" )
             ]
 
+        maybePromptClass =
+            case selected of
+                Nothing ->
+                    config.promptClass
+
+                _ ->
+                    ""
+
+        classes =
+            config.triggerClass ++ " " ++ maybePromptClass
+
         clear =
             case selected of
                 Nothing ->
@@ -73,7 +84,7 @@ view config state items selected =
                 |> onWithOptions "click" { stopPropagation = True, preventDefault = False }
     in
         div
-            [ class config.triggerClass
+            [ class classes
             , onBlurAttribute config state
             , onClick OnClickPrompt
             , onKeyUpAttribute

@@ -75,12 +75,13 @@ Create the configuration for the Dropdown component
 dropdownConfig : Dropdown.Config Msg Movie
 dropdownConfig =
     Dropdown.newConfig OnSelect .label
-        |> Dropdown.withItemClass "border-bottom border-silver p1"
-        |> Dropdown.withItemStyles [ ( "color", "darkgrey" ) ]
+        |> Dropdown.withItemClass "border-bottom border-silver p1 gray"
         |> Dropdown.withMenuClass "border border-gray"
         |> Dropdown.withMenuStyles [ ( "background", "white" ) ]
         |> Dropdown.withPrompt "Select"
-        |> Dropdown.withTriggerClass "col-12 bg-white p1"
+        |> Dropdown.withPromptClass "silver"
+        |> Dropdown.withSelectedStyles [ ( "color", "black" ) ]
+        |> Dropdown.withTriggerClass "col-12 border bg-white p1"
 
 
 {-|
@@ -126,7 +127,7 @@ view model =
                     List.filter (\movie -> movie.id == id) movies
                         |> List.head
     in
-        div [ class "bg-white p1" ]
+        div [ class "bg-aqua p1" ]
             [ h3 [] [ text "Basic example" ]
             , text (toString model.selectedMovieId)
               -- Render the Dropdown view. You must pass:

@@ -10,6 +10,7 @@ type alias Config msg item =
     , menuStyles : List ( String, String )
     , onSelect : Maybe item -> msg
     , prompt : String
+    , promptClass : String
     , triggerClass : String
     , selectedClass : String
     , selectedStyles : List ( String, String )
@@ -27,6 +28,7 @@ newConfig onSelect toLabel =
     , menuStyles = []
     , onSelect = onSelect
     , prompt = " "
+    , promptClass = ""
     , triggerClass = ""
     , selectedClass = ""
     , selectedStyles = []

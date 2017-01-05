@@ -14,6 +14,8 @@ module Dropdown
         , withMenuClass
         , withMenuStyles
         , withPrompt
+        , withPromptClass
+        , withSelectedClass
         , withSelectedStyles
         , withTriggerClass
         )
@@ -27,7 +29,7 @@ module Dropdown
 @docs newConfig
 
 # Styling
-@docs withArrowClass, withClearClass, withItemClass, withItemStyles, withMenuClass, withMenuStyles, withPrompt, withSelectedStyles, withTriggerClass
+@docs withArrowClass, withClearClass, withItemClass, withItemStyles, withMenuClass, withMenuStyles, withPrompt, withPromptClass, withSelectedClass, withSelectedStyles, withTriggerClass
 
 # State
 @docs newState
@@ -165,6 +167,25 @@ withMenuStyles styles config =
         fmapConfig fn config
 
 
+{-|
+Add classes to the prompt text (When no item is selected)
+
+    Dropdown.withPromptClass "prompt" config
+-}
+withPromptClass : String -> Config msg item -> Config msg item
+withPromptClass classes config =
+    let
+        fn c =
+            { c | promptClass = classes }
+    in
+        fmapConfig fn config
+
+
+{-|
+Add a prompt text to be displayed when no element is selected
+
+    Dropdown.withPrompt "Select a movie" config
+-}
 withPrompt : String -> Config msg item -> Config msg item
 withPrompt prompt config =
     let
