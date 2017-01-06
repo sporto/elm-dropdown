@@ -80,6 +80,7 @@ dropdownConfig =
         |> Dropdown.withMenuStyles [ ( "background", "white" ) ]
         |> Dropdown.withPrompt "Select"
         |> Dropdown.withPromptClass "silver"
+        |> Dropdown.withSelectedClass "bold"
         |> Dropdown.withSelectedStyles [ ( "color", "black" ) ]
         |> Dropdown.withTriggerClass "col-12 border bg-white p1"
 
