@@ -1,5 +1,5 @@
 {
-    "version": "1.2.0",
+    "version": "1.2.1",
     "summary": "A dropdown / select component",
     "repository": "https://github.com/sporto/elm-dropdown.git",
     "license": "MIT",
