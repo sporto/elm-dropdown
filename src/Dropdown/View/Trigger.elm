@@ -100,7 +100,8 @@ clearView config state selected =
             "elm-dropdown-clear " ++ config.clearClass
 
         styles =
-            config.clearStyles
+            List.append config.clearStyles
+                [ ( "line-height", "0rem" ) ]
 
         onClickWithoutPropagation msg =
             Decode.succeed msg
@@ -130,7 +131,8 @@ arrowView config state =
 
         styles =
             List.append config.arrowStyles
-                [ ( "padding", "0 0.25rem 0 0" )
+                [ ( "margin", "0 0.25rem 0 0" )
+                , ( "line-height", "0rem" )
                 ]
     in
         span
