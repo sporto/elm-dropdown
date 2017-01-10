@@ -8,14 +8,19 @@ module Dropdown
         , update
         , view
         , withArrowClass
+        , withArrowStyles
+        , withArrowSvgClass
         , withClear
         , withClearClass
+        , withClearStyles
+        , withClearSvgClass
         , withItemClass
         , withItemStyles
         , withMenuClass
         , withMenuStyles
         , withPrompt
         , withPromptClass
+        , withPromptStyles
         , withSelectedClass
         , withSelectedStyles
         , withTriggerClass
@@ -30,7 +35,7 @@ module Dropdown
 @docs newConfig, withClear, withPrompt
 
 # Styling
-@docs withArrowClass, withClearClass, withItemClass, withItemStyles, withMenuClass, withMenuStyles, withPromptClass, withSelectedClass, withSelectedStyles, withTriggerClass
+@docs withArrowClass, withArrowStyles, withArrowSvgClass, withClearClass, withClearStyles, withClearSvgClass, withItemClass, withItemStyles, withMenuClass, withMenuStyles, withPromptClass, withPromptStyles, withSelectedClass, withSelectedStyles, withTriggerClass
 
 # State
 @docs newState
@@ -85,7 +90,7 @@ newConfig onSelectMessage toLabel =
 
 
 {-|
-Add classes to the arrow icon
+Add classes to the arrow wrapper
 
     Dropdown.withArrowClass "arrow" config
 -}
@@ -94,6 +99,34 @@ withArrowClass classes config =
     let
         fn c =
             { c | arrowClass = classes }
+    in
+        fmapConfig fn config
+
+
+{-|
+Add styles to the arrow wrapper
+
+    Dropdown.withArrowStyles [("color", "red")] config
+-}
+withArrowStyles : List ( String, String ) -> Config msg item -> Config msg item
+withArrowStyles styles config =
+    let
+        fn c =
+            { c | arrowStyles = styles }
+    in
+        fmapConfig fn config
+
+
+{-|
+Add classes to the arrow svg icon
+
+    Dropdown.withArrowSvgClass "arrow" config
+-}
+withArrowSvgClass : String -> Config msg item -> Config msg item
+withArrowSvgClass classes config =
+    let
+        fn c =
+            { c | arrowSvgClass = classes }
     in
         fmapConfig fn config
 
@@ -113,7 +146,7 @@ withClear bool config =
 
 
 {-|
-Add classes to the clear icon
+Add classes to the clear button wrapper
 
     Dropdown.withClearClass "clear" config
 -}
@@ -122,6 +155,34 @@ withClearClass classes config =
     let
         fn c =
             { c | clearClass = classes }
+    in
+        fmapConfig fn config
+
+
+{-|
+Add styles to the clear button wrapper
+
+    Dropdown.withClearStyles [("color", "red")] config
+-}
+withClearStyles : List ( String, String ) -> Config msg item -> Config msg item
+withClearStyles styles config =
+    let
+        fn c =
+            { c | clearStyles = styles }
+    in
+        fmapConfig fn config
+
+
+{-|
+Add classes to the clear icon
+
+    Dropdown.withClearSvgClass "clear" config
+-}
+withClearSvgClass : String -> Config msg item -> Config msg item
+withClearSvgClass classes config =
+    let
+        fn c =
+            { c | clearSvgClass = classes }
     in
         fmapConfig fn config
 
@@ -206,6 +267,20 @@ withPrompt prompt config =
     let
         fn c =
             { c | prompt = prompt }
+    in
+        fmapConfig fn config
+
+
+{-|
+Add styles to prompt text
+
+    Dropdown.withPromptStyles [("color", "red")] config
+-}
+withPromptStyles : List ( String, String ) -> Config msg item -> Config msg item
+withPromptStyles styles config =
+    let
+        fn c =
+            { c | promptStyles = styles }
     in
         fmapConfig fn config
 

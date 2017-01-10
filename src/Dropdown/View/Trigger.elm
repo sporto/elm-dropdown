@@ -35,67 +35,106 @@ onKeyUpAttribute =
 view : Config msg item -> State -> List item -> Maybe item -> Html (Msg item)
 view config state items selected =
     let
-        prompWrapperStyles =
+        styles =
             [ ( "display", "flex" )
             , ( "align-items", "center" )
             , ( "cursor", "pointer" )
             ]
 
-        textStyles =
-            [ ( "flex-grow", "1" )
-            , ( "text-overflow", "ellipsis" )
-            , ( "overflow", "hidden" )
-            , ( "white-space", "nowrap" )
-            ]
-
-        arrowStyles =
-            [ ( "padding", "0 0.25rem 0 0" )
-            ]
-
-        maybePromptClass =
-            case selected of
-                Nothing ->
-                    config.promptClass
-
-                _ ->
-                    ""
-
         classes =
-            config.triggerClass ++ " " ++ maybePromptClass
-
-        clear =
-            if config.hasClear then
-                case selected of
-                    Nothing ->
-                        text ""
-
-                    Just _ ->
-                        span [ onClickWithoutPropagation OnClear ] [ Clear.view config ]
-            else
-                text ""
-
-        promptText =
-            case selected of
-                Nothing ->
-                    config.prompt
-
-                Just item ->
-                    config.toLabel item
-
-        onClickWithoutPropagation msg =
-            Decode.succeed msg
-                |> onWithOptions "click" { stopPropagation = True, preventDefault = False }
+            config.triggerClass
     in
         div
             [ class classes
             , onBlurAttribute config state
             , onClick OnClickPrompt
             , onKeyUpAttribute
-            , style prompWrapperStyles
+            , style styles
             , tabindex 0
             , Utils.referenceAttr config state
             ]
-            [ span [ style textStyles ] [ text promptText ]
-            , clear
-            , span [ style arrowStyles ] [ Arrow.view config ]
+            [ promptOrCurrentView config state selected
+            , clearView config state selected
+            , arrowView config state
             ]
+
+
+promptOrCurrentView : Config msg item -> State -> Maybe item -> Html (Msg item)
+promptOrCurrentView config state selected =
+    let
+        ( maybePromptClass, maybePromptStyles ) =
+            case selected of
+                Nothing ->
+                    ( config.promptClass, config.promptStyles )
+
+                _ ->
+                    ( "", [] )
+
+        classes =
+            maybePromptClass
+
+        styles =
+            List.append
+                [ ( "flex-grow", "1" )
+                , ( "text-overflow", "ellipsis" )
+                , ( "overflow", "hidden" )
+                , ( "white-space", "nowrap" )
+                ]
+                maybePromptStyles
+
+        shownText =
+            case selected of
+                Nothing ->
+                    config.prompt
+
+                Just item ->
+                    config.toLabel item
+    in
+        span [ class classes, style styles ] [ text shownText ]
+
+
+clearView : Config msg item -> State -> Maybe item -> Html (Msg item)
+clearView config state selected =
+    let
+        classes =
+            "elm-dropdown-clear " ++ config.clearClass
+
+        styles =
+            config.clearStyles
+
+        onClickWithoutPropagation msg =
+            Decode.succeed msg
+                |> onWithOptions "click" { stopPropagation = True, preventDefault = False }
+    in
+        if config.hasClear then
+            case selected of
+                Nothing ->
+                    text ""
+
+                Just _ ->
+                    span
+                        [ class classes
+                        , style styles
+                        , onClickWithoutPropagation OnClear
+                        ]
+                        [ Clear.view config ]
+        else
+            text ""
+
+
+arrowView : Config msg item -> State -> Html (Msg item)
+arrowView config state =
+    let
+        classes =
+            "elm-dropdown-arrow " ++ config.arrowClass
+
+        styles =
+            List.append config.arrowStyles
+                [ ( "padding", "0 0.25rem 0 0" )
+                ]
+    in
+        span
+            [ class classes
+            , style styles
+            ]
+            [ Arrow.view config ]

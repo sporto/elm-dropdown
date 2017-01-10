@@ -1,19 +1,28 @@
 module Dropdown.Models exposing (..)
 
 
+type alias Style =
+    ( String, String )
+
+
 type alias Config msg item =
     { arrowClass : String
+    , arrowStyles : List Style
+    , arrowSvgClass : String
     , clearClass : String
+    , clearStyles : List Style
+    , clearSvgClass : String
     , hasClear : Bool
     , itemClass : String
-    , itemStyles : List ( String, String )
+    , itemStyles : List Style
     , menuClass : String
-    , menuStyles : List ( String, String )
+    , menuStyles : List Style
     , onSelect : Maybe item -> msg
     , prompt : String
     , promptClass : String
+    , promptStyles : List Style
     , selectedClass : String
-    , selectedStyles : List ( String, String )
+    , selectedStyles : List Style
     , toLabel : item -> String
     , triggerClass : String
     }
@@ -22,7 +31,11 @@ type alias Config msg item =
 newConfig : (Maybe item -> msg) -> (item -> String) -> Config msg item
 newConfig onSelect toLabel =
     { arrowClass = ""
+    , arrowStyles = []
+    , arrowSvgClass = ""
     , clearClass = ""
+    , clearStyles = []
+    , clearSvgClass = ""
     , hasClear = True
     , itemClass = ""
     , itemStyles = []
@@ -31,6 +44,7 @@ newConfig onSelect toLabel =
     , onSelect = onSelect
     , prompt = " "
     , promptClass = ""
+    , promptStyles = []
     , triggerClass = ""
     , selectedClass = ""
     , selectedStyles = []

@@ -13,11 +13,13 @@ view config model items selected =
         renderedItems =
             List.map (Item.view config model selected) items
 
+        classes =
+            config.menuClass
+
         styles =
-            List.concat
-                [ config.menuStyles
-                , [ ( "position", "absolute" )
-                  ]
+            List.append config.menuStyles
+                [ ( "position", "absolute" )
+                , ( "width", "100%" )
                 ]
     in
-        div [ class config.menuClass, style styles ] renderedItems
+        div [ class classes, style styles ] renderedItems
