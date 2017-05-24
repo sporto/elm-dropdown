@@ -25,6 +25,7 @@ type alias Config msg item =
     , selectedStyles : List Style
     , toLabel : item -> String
     , triggerClass : String
+    , triggerStyles : List Style
     }
 
 
@@ -46,6 +47,7 @@ newConfig onSelect toLabel =
     , promptClass = ""
     , promptStyles = []
     , triggerClass = ""
+    , triggerStyles = []
     , selectedClass = ""
     , selectedStyles = []
     , toLabel = toLabel

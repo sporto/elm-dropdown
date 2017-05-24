@@ -36,10 +36,11 @@ view : Config msg item -> State -> List item -> Maybe item -> Html (Msg item)
 view config state items selected =
     let
         styles =
-            [ ( "display", "flex" )
-            , ( "align-items", "center" )
-            , ( "cursor", "pointer" )
-            ]
+            List.append config.triggerStyles
+                [ ( "display", "flex" )
+                , ( "align-items", "center" )
+                , ( "cursor", "pointer" )
+                ]
 
         classes =
             config.triggerClass
