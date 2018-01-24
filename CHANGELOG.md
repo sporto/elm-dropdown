@@ -1,8 +1,12 @@
 # Changelog
 
+### 1.4.0
+
+- Add `isOpen`
+
 ### 1.3.0
 
-- Added `withTriggerStyles`
+- Add `withTriggerStyles`
 
 ### 1.2.0
 
