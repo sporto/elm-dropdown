@@ -5,6 +5,7 @@ module Dropdown
         , Msg
         , newConfig
         , newState
+        , isOpen
         , update
         , view
         , withArrowClass
@@ -47,7 +48,7 @@ module Dropdown
 
 # State
 
-@docs newState
+@docs newState, isOpen
 
 
 # view
@@ -111,7 +112,7 @@ withArrowClass classes config =
         fn c =
             { c | arrowClass = classes }
     in
-        fmapConfig fn config
+        mapConfig fn config
 
 
 {-| Add styles to the arrow wrapper
@@ -125,7 +126,7 @@ withArrowStyles styles config =
         fn c =
             { c | arrowStyles = styles }
     in
-        fmapConfig fn config
+        mapConfig fn config
 
 
 {-| Add classes to the arrow svg icon
@@ -139,7 +140,7 @@ withArrowSvgClass classes config =
         fn c =
             { c | arrowSvgClass = classes }
     in
-        fmapConfig fn config
+        mapConfig fn config
 
 
 {-| Show or hide the clear (x) button, default is true
@@ -153,7 +154,7 @@ withClear bool config =
         fn c =
             { c | hasClear = bool }
     in
-        fmapConfig fn config
+        mapConfig fn config
 
 
 {-| Add classes to the clear button wrapper
@@ -167,7 +168,7 @@ withClearClass classes config =
         fn c =
             { c | clearClass = classes }
     in
-        fmapConfig fn config
+        mapConfig fn config
 
 
 {-| Add styles to the clear button wrapper
@@ -181,7 +182,7 @@ withClearStyles styles config =
         fn c =
             { c | clearStyles = styles }
     in
-        fmapConfig fn config
+        mapConfig fn config
 
 
 {-| Add classes to the clear icon
@@ -195,7 +196,7 @@ withClearSvgClass classes config =
         fn c =
             { c | clearSvgClass = classes }
     in
-        fmapConfig fn config
+        mapConfig fn config
 
 
 {-| Add classes to the items in the list
@@ -209,7 +210,7 @@ withItemClass classes config =
         fn c =
             { c | itemClass = classes }
     in
-        fmapConfig fn config
+        mapConfig fn config
 
 
 {-| Add styles to the items in the list
@@ -223,7 +224,7 @@ withItemStyles styles config =
         fn c =
             { c | itemStyles = styles }
     in
-        fmapConfig fn config
+        mapConfig fn config
 
 
 {-| Add classes to the menu (list of items)
@@ -237,7 +238,7 @@ withMenuClass classes config =
         fn c =
             { c | menuClass = classes }
     in
-        fmapConfig fn config
+        mapConfig fn config
 
 
 {-| Add styles to menu
@@ -251,7 +252,7 @@ withMenuStyles styles config =
         fn c =
             { c | menuStyles = styles }
     in
-        fmapConfig fn config
+        mapConfig fn config
 
 
 {-| Add classes to the prompt text (When no item is selected)
@@ -265,7 +266,7 @@ withPromptClass classes config =
         fn c =
             { c | promptClass = classes }
     in
-        fmapConfig fn config
+        mapConfig fn config
 
 
 {-| Add a prompt text to be displayed when no element is selected
@@ -279,7 +280,7 @@ withPrompt prompt config =
         fn c =
             { c | prompt = prompt }
     in
-        fmapConfig fn config
+        mapConfig fn config
 
 
 {-| Add styles to prompt text
@@ -293,7 +294,7 @@ withPromptStyles styles config =
         fn c =
             { c | promptStyles = styles }
     in
-        fmapConfig fn config
+        mapConfig fn config
 
 
 {-| Add classes to currently selected item in the menu
@@ -307,7 +308,7 @@ withSelectedClass classes config =
         fn c =
             { c | selectedClass = classes }
     in
-        fmapConfig fn config
+        mapConfig fn config
 
 
 {-| Add classes to trigger element
@@ -321,7 +322,7 @@ withTriggerClass classes config =
         fn c =
             { c | triggerClass = classes }
     in
-        fmapConfig fn config
+        mapConfig fn config
 
 
 {-| Add styles to trigger element
@@ -335,7 +336,7 @@ withTriggerStyles styles config =
         fn c =
             { c | triggerStyles = styles }
     in
-        fmapConfig fn config
+        mapConfig fn config
 
 
 {-| Add styles to currently selected item in the menu
@@ -349,13 +350,13 @@ withSelectedStyles styles config =
         fn c =
             { c | selectedStyles = styles }
     in
-        fmapConfig fn config
+        mapConfig fn config
 
 
 {-| @priv
 -}
-fmapConfig : (Models.Config msg item -> Models.Config msg item) -> Config msg item -> Config msg item
-fmapConfig fn config =
+mapConfig : (Models.Config msg item -> Models.Config msg item) -> Config msg item -> Config msg item
+mapConfig fn config =
     let
         config_ =
             unwrapConfig config
@@ -374,6 +375,13 @@ fmapConfig fn config =
 newState : String -> State
 newState id =
     PrivateState (Models.newState id)
+
+
+{-| Get the current open state
+-}
+isOpen : State -> Bool
+isOpen (PrivateState state) =
+    state.isOpened
 
 
 {-| Render the view
