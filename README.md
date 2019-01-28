@@ -1,3 +1,5 @@
+*Unmantained. Please use https://github.com/EdutainmentLIVE/elm-dropdown*
+
 # Elm Dropdown
 
 A dropdown component for Elm
