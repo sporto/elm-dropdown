@@ -1,4 +1,4 @@
-*Unmantained. Please use https://github.com/EdutainmentLIVE/elm-dropdown*
+**Unmantained. Please use https://github.com/EdutainmentLIVE/elm-dropdown**
 
 # Elm Dropdown
 
